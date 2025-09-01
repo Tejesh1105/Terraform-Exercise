@@ -1,5 +1,5 @@
 resource "aws_instance" "terraformweb" {
-  ami                    = data.aws_ami.amiID.id
+  ami                    = var.amiID[var.region]
   instance_type          = "t3.micro"
   key_name               = "terra-key"
   vpc_security_group_ids = [aws_security_group.terra-sg.id]
