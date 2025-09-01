@@ -1,4 +1,6 @@
-#Here I have mentioned resource name and security group name same which is terra-sg. You need to google your ipv4 from google and paste it here.
+#Here I have mentioned resource name and security group name same which is terra-sg. 
+#You need to google your ipv4 from google and paste it here.
+
 resource "aws_security_group" "terra-sg" {
   name        = "terra-sg"
   description = "terra-sg using terraform"
