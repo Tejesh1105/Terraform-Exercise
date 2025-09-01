@@ -1,7 +1,7 @@
 resource "aws_instance" "web" {
   ami                    = var.amiID[var.region]
   instance_type          = "t3.micro"
-  key_name               = "terra-key"
+  key_name               = "dove-key"
   vpc_security_group_ids = [aws_security_group.dove-sg.id]
   availability_zone      = var.zone1
 
@@ -18,7 +18,7 @@ resource "aws_instance" "web" {
   connection {
     type        = "ssh"
     user        = var.webuser
-    private_key = file("terrakey")
+    private_key = file("dovekey")
     host        = self.public_ip
   }
 
@@ -28,6 +28,10 @@ resource "aws_instance" "web" {
       "sudo /tmp/web.sh"
     ]
   }
+
+  provisioner "local_exec" {
+    command = "echo ${self.private_ip} >> private_ips.txt"
+  }
 }
 
 resource "aws_ec2_instance_state" "web-state" {
@@ -35,4 +39,12 @@ resource "aws_ec2_instance_state" "web-state" {
   state       = "running"
 }
 
+output "WebPulicIP" {
+  description = "AMI ID of Ubuntu instance"
+  value       = aws_instance.web.public_ip
+}
 
+output "WebPrivateIP" {
+  description = "AMI ID of Ubuntu instance"
+  value       = aws_instance.web.private_ip
+}
