@@ -3,7 +3,7 @@ resource "aws_instance" "terraformweb" {
   instance_type          = "t3.micro"
   key_name               = "terra-key"
   vpc_security_group_ids = [aws_security_group.terra-sg.id]
-  availability_zone      = var.region
+  availability_zone      = var.zone1
 
   tags = {
     Name = "Terra-web"
